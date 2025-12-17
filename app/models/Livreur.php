@@ -3,7 +3,7 @@ namespace app\models;
 
 use PDO;
 
-class Vehicule
+class Livreur
 {
   private $db;
 
@@ -12,9 +12,9 @@ class Vehicule
     $this->db = $db;
   }
 
-  public function getAllVehicule()
+  public function getAllChauffeur()
   {
-    $sql = "SELECT * FROM lvr_Vehicules";
+    $sql = "SELECT * FROM lvr_Livreurs";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll();

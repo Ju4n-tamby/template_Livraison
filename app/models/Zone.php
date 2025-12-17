@@ -3,7 +3,7 @@ namespace app\models;
 
 use PDO;
 
-class Vehicule
+class Zone
 {
   private $db;
 
@@ -12,9 +12,9 @@ class Vehicule
     $this->db = $db;
   }
 
-  public function getAllVehicule()
+  public function getAllZone()
   {
-    $sql = "SELECT * FROM lvr_Vehicules";
+    $sql = "SELECT * FROM lvr_Zone";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll();
