@@ -3,29 +3,17 @@ USE Livraison;
 
 CREATE TABLE lvr_Livreurs(
   id_livreur INT PRIMARY KEY AUTO_INCREMENT,
-  nom VARCHAR(100),
-  salaire DECIMAL(10,2)
+  nom VARCHAR(100)
 );
 
 CREATE TABLE lvr_Vehicules(
   id_vehicule INT PRIMARY KEY AUTO_INCREMENT,
-  modele VARCHAR(200),
-  consommation DECIMAL(10,2)
-);
-
-CREATE TABLE lvr_VoitureDuJour(
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  id_vehicule INT,
-  id_livreur INT,
-  date DATE,
-  FOREIGN KEY (id_vehicule) REFERENCES lvr_Vehicules(id_vehicule),
-  FOREIGN KEY (id_livreur) REFERENCES lvr_Livreurs(id_livreur)
+  marque VARCHAR(200)
 );
 
 CREATE TABLE lvr_Zone(
   id_zone INT PRIMARY KEY AUTO_INCREMENT,
-  nom VARCHAR(100),
-  distance_km DECIMAL(10,2)
+  zone VARCHAR(100)
 );
 
 CREATE TABLE lvr_Statut(
@@ -33,18 +21,45 @@ CREATE TABLE lvr_Statut(
   libelle VARCHAR(100)
 );
 
+CREATE TABLE lvr_Param_Livraison(
+  id_param INT PRIMARY KEY AUTO_INCREMENT,
+  prix_kg DECIMAL(10,2),
+  adresse_depart VARCHAR(200)
+);
+
+CREATE TABLE lvr_Colis(
+  id_colis INT PRIMARY KEY AUTO_INCREMENT,
+  libelle VARCHAR(200),
+  poids DECIMAL(10,2)
+);
+
 CREATE TABLE lvr_Livraisons(
   id_livraison INT PRIMARY KEY AUTO_INCREMENT,
-  id_voiture_du_jour INT,
-  depart VARCHAR(200),
+  id_vehicule INT,
+  id_livreur INT,
+  montant_recette DECIMAL(10,2),
   id_zone INT,
-  id_statut INT,
+  adresse_destination VARCHAR(200),
+  id_colis INT,
   date_livraison DATETIME,
-  colis VARCHAR(200),
-  cout_revient DECIMAL(10,2),
-  FOREIGN KEY (id_voiture_du_jour) REFERENCES lvr_VoitureDuJour(id),
+  id_statut INT,
+  FOREIGN KEY (id_vehicule) REFERENCES lvr_Vehicules(id_vehicule),
+  FOREIGN KEY (id_livreur) REFERENCES lvr_Livreurs(id_livreur),
   FOREIGN KEY (id_zone) REFERENCES lvr_Zone(id_zone),
+  FOREIGN KEY (id_colis) REFERENCES lvr_Colis(id_colis),
   FOREIGN KEY (id_statut) REFERENCES lvr_Statut(id_statut)
 );
 
+INSERT INTO ADDRESS lvr_Param_Livraison (prix_kg, adresse_depart) VALUES (3000, 'Anosibe, Antananarivo');
 
+INSERT INTO lvr_Statut (libelle) VALUES
+('En attente'), ('Livré'), ('Annulé');
+
+INSERT INTO lvr_Livreurs (nom) VALUES
+('Jean Dupont'), ('Marie Curie'), ('Albert Einstein'), ('Isaac Newton', ('Galileo Galilei'));
+
+INSERT INTO lvr_Vehicules (marque) VALUES
+('Toyota'), ('Ford'), ('Honda'), ('Nissan'), ('Chevrolet');
+
+INSERT INTO lvr_Zone (zone) VALUES
+('Antananarivo'), ('Toamasina'), ('Fianarantsoa'), ('Mahajanga'), ('Toliara');
