@@ -1,7 +1,7 @@
 -----------------------------------
           DATABASE
 -----------------------------------
-  - creer table :   (Mihaja)
+  - creer table :   (Juan)
       * Liste livreur : id, nom, salaire
       * Liste vehicule : id, marque
       * Liste zone_de_livraison : id, zone
