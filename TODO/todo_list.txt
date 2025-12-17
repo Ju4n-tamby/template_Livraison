@@ -1,1 +1,123 @@
-fnqkefn;elkfnslkndfl;sd
+-----------------------------------
+          DATABASE
+-----------------------------------
+  - creer table :   (Mihaja)
+      * Liste livreur : id, nom, salaire
+      * Liste vehicule : id, marque
+      * Liste voitureDujour : id, livreur, vehicule, date
+      * Liste zone_de_livraison : id, zone
+      * Liste livraison : id, voitureDujour, cout de revient,  zone_de_livraison, adresse depart, adresse de destination, colis
+      * Statut(en attente livre annulee)
+  - inserer des valeurs de test (Juan)
+
+-----------------------------------
+          FONCTIONS
+-----------------------------------
+  - creer une fonction connect(connection base) (juan)
+
+  - function getAlljourVoituredujour() (juan)
+
+  1. function listeVehicules_livreur()  (Mihaja)
+    * requete : select * from voitureDujour ORDER BY date desc;
+    * kilometre effectuée, salaire, montant carburant :
+      -» function getTotalDonnees($id_voituredujour)
+
+  2. function getTotalBenefice($vehicule) (Mihaja)
+    * requete : select SUM(recette) as r, SUM(carburant) as c from listeMvt JOIN voitureDujour WHERE vehicule = $vehicule;
+    * retour : r - c;
+
+  3. function getBeneficeParJour($jour) (Mihaja)
+    * requete : select SUM(recette) as r, SUM(carburant) as c from listeMvt JOIN voitureDujour WHERE date = $jour;
+    * retour : r - c;
+
+  4. function getTrajetRentable($jour) (Mihaja)
+   * requete : SELECT
+                        lm.trajet,
+                        SUM(lm.recette) AS r,
+                        SUM(lm.carburant) AS c,
+                        SUM(lm.recette) - SUM(lm.carburant) AS benefice
+                    FROM listeMvt lm
+                    JOIN voitureDujour vd ON lm.idVoiture = vd.idVoiture
+                    WHERE DATE(lm.date) = ?
+                    GROUP BY lm.trajet
+                    ORDER BY benefice DESC;
+  * retour : array de trajets avec benefice par trajet;
+
+  1. function lstVehiculeDispo($date)  (Juan)
+    * requete : select * from voitureDujour WHERE date = $date;
+
+  2. function tauxPanne($mois, $annee) (Juan)
+    * une voiture est supposée travailler 25 j / mois
+    * requete :
+            SELECT
+                vehicule,
+                COUNT(*) AS nbJourTravaille
+            FROM voitureDujour
+            WHERE MONTH(date) = $mois
+              AND YEAR(date) = $annee
+            GROUP BY vehicule;
+
+    * calcul :
+            nbPanne = 25 - nbJourTravaille
+            taux = nbPanne / 25
+
+    * retour :
+            array( vehicule, nbJourTravaille, nbPanne, tauxPanne )
+
+
+  1.  function getSalaireJournalier($date)  (Juan)
+    * retour : si > versement min : pourcentage = taux pour sup sinon pourcentage taux pur inf
+      salaire = versement * pourcentage;
+      array (chauffeur, salaire)
+
+-----------------------------------
+          MODELS
+-----------------------------------
+  - VehiculeduJour.php : (Mihaja)
+    * attribut : id, date, vehicule, nom chauffeur, kilometre effectuée, montant recette, montant carburant
+    * function : function listeVehicules_chauffeur(), function getTotalDonnees($id_voituredujour), function lstVehiculeDispo($date)
+
+  - vehicule.php  (Mihaja)
+    * attribut : id, vehicule, montant benefice
+    * function : function getAllVehicle(), function getTotalBenefice($vehicule), function tauxPanne($mois, $annee);
+
+  - benefice.php (Juan)
+    * attribut : jour, benefice
+    * function : function getBeneficeParJour
+
+  - trajet.php (Juan)
+    * attribut : jour, trajet, benefice
+    * function : function getAlljourVoituredujour(), function getTrajetRentable()
+
+  - salaire.php (Juan)
+    * attribut : chauffeur, vehicule, versement, salaire
+    * function : function getSalaireJournalier($date)
+-----------------------------------
+          CONTROLLERS
+-----------------------------------
+  - TaxibeController.php
+    * fonctions:
+      - function Liste par jour des véhicules et son chauffeur correspondant
+      - function Total montant bénéfice par véhicule
+      - function Total montant bénéfice par jour
+      - function Afficher les trajets les plus rentables par jour
+      - function Afficher les véhicules disponibles dans une date donnée
+      - function Afficher le taux de pourcentage de panne par mois
+      - function Afficher le salaire journalier de chaque chauffeur
+
+-----------------------------------
+          VUES
+-----------------------------------
+  - creer des vues :
+      - pages pour la liste des vehicules et chauffeur correspondant
+      - pages liste vehicule avec total benefice
+      - pages avec montant benefice par jour
+      - pages liste trajet rentable par jour
+      - pages liste vehicules dispo a une date donnée
+      - pages avec taux de pourcentage de panne par mois(preciser le mois et l'année)
+      - pages avec liste salaire journalier
+
+-----------------------------------
+          ROUTES
+-----------------------------------
+  - creer les routes necessaires dans routes.php pour les vues
