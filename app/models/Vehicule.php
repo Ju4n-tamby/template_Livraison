@@ -19,4 +19,12 @@ class Vehicule
     $stmt->execute();
     return $stmt->fetchAll();
   }
+
+  public function getVehiculeById($idVehicule)
+  {
+    $sql = "SELECT * FROM lvr_Vehicules WHERE id_vehicule = ?";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$idVehicule]);
+    return $stmt->fetch();
+  }
 }

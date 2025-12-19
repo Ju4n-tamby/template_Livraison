@@ -93,4 +93,37 @@ class Benefice
 
     return $resultats;
   }
+
+  public function getDetailsBeneficeVehicule($idVehicule)
+  {
+    // Récupérer toutes les livraisons pour ce véhicule avec détails
+    $sql = "SELECT lv.id_livraison, lv.id_colis, lv.date_livraison, lv.montant_recette, lvr.salaire, lz.bonus, v.marque
+            FROM lvr_Livraisons lv
+            JOIN lvr_Livreurs lvr ON lv.id_livreur = lvr.id_livreur
+            JOIN lvr_Zone lz ON lv.id_zone = lz.id_zone
+            JOIN lvr_Vehicules v ON lv.id_vehicule = v.id_vehicule
+            WHERE lv.id_vehicule = ?
+            ORDER BY lv.date_livraison DESC";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$idVehicule]);
+    $livraisons = $stmt->fetchAll();
+
+    $details = [];
+    foreach ($livraisons as $livraison) {
+      $chiffre = $this->calculChiffreAffaire($livraison['id_colis']);
+      $revient = $livraison['montant_recette'] + $livraison['salaire'] + ($livraison['bonus'] * $livraison['salaire']) / 100;
+      $benefice = $chiffre - $revient;
+
+      $details[] = [
+        'id_livraison' => $livraison['id_livraison'],
+        'date_livraison' => $livraison['date_livraison'],
+        'marque' => $livraison['marque'],
+        'chiffre_affaire' => $chiffre,
+        'revient' => $revient,
+        'benefice' => $benefice
+      ];
+    }
+
+    return $details;
+  }
 }

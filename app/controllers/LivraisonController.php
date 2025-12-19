@@ -83,4 +83,9 @@ class LivraisonController
   {
     return $this->beneficeModel->getAllBeneficesVehicules();
   }
+
+  public function getDetailsVehicule($idVehicule)
+  {
+    return $this->beneficeModel->getDetailsBeneficeVehicule($idVehicule);
+  }
 }

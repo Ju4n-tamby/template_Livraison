@@ -104,4 +104,23 @@ $router->group('', function ($router) {
     $benefices = $controller->getBeneficesVehicules();
     Flight::render('benefice_vehicule', ['benefices' => $benefices]);
   });
+
+  $router->get('/detail_livraisons_vehicule', function () {
+    $idVehicule = $_GET['id'] ?? null;
+    
+    if ($idVehicule === null) {
+      echo "Identifiant du véhicule manquant.";
+      return;
+    }
+    
+    $controller = new LivraisonController(Flight::db());
+    $details = $controller->getDetailsVehicule($idVehicule);
+    
+    // Récupérer la marque du véhicule pour l'afficher dans le titre
+    $vehiculeModel = new \app\models\Vehicule(Flight::db());
+    $vehicule = $vehiculeModel->getVehiculeById($idVehicule);
+    $marque = $vehicule ? $vehicule['marque'] : 'Véhicule';
+    
+    Flight::render('detail_livraisons_vehicule', ['details' => $details, 'marque' => $marque]);
+  });
 }, [SecurityHeadersMiddleware::class]);

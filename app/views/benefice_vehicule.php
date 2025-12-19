@@ -121,6 +121,19 @@
         .btn-secondary:hover {
             background-color: #0b7dda;
         }
+
+        .marque-link {
+            color: #2196F3;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .marque-link:hover {
+            color: #0b7dda;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -156,7 +169,7 @@
                             $beneficeClass = $vehicule['benefice'] >= 0 ? 'positive' : 'negative';
                             
                             echo '<tr>';
-                            echo '<td>' . htmlspecialchars($vehicule['marque']) . '</td>';
+                            echo '<td><a href="/detail_livraisons_vehicule?id=' . $vehicule['id_vehicule'] . '" class="marque-link">' . htmlspecialchars($vehicule['marque']) . '</a></td>';
                             echo '<td class="currency">' . number_format($vehicule['chiffre_affaire'], 0, ',', ' ') . '</td>';
                             echo '<td class="currency">' . number_format($vehicule['revient'], 0, ',', ' ') . '</td>';
                             echo '<td class="currency ' . $beneficeClass . '">' . number_format($vehicule['benefice'], 0, ',', ' ') . '</td>';
