@@ -115,3 +115,18 @@ PARTIE 2 :
     * ajouter une page pour gerer les zones(formulaire ajout, liste avec option modifierou supprimer)  ok
     * livraisons.php:     ok
       - ajouter un bouton pour tout supprimer avec validation taper 9999 pour confirmer   ok
+
+
+PARTIE 3;
+
+    -function (Juan) ok
+        -> getAllBeneficesVehicules()   ok
+        -> getDetailsBeneficeVehicule($idVehicule)  ok
+
+    -vues : (Mihaja)    ok
+        ->ajouter page contenant un tableau des benefice par voiture   ok
+        ->lien sur les voiture    ok
+        ->detail quand clique sur les liens   ok
+        ->mettre total  ok
+
+     
