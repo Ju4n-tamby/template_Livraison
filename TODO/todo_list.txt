@@ -2,88 +2,88 @@
           DATABASE
 -----------------------------------
   - creer table :   (Juan)
-      * Liste livreur : id, nom, salaire
-      * Liste vehicule : id, marque
-      * Liste zone_de_livraison : id, zone
-      * Statut(en attente livre annulee)
-      * Param_livraison : prix_kg, adresse depart
-      * Colis : id, libelle, poids
-      * Liste livraison : id, vehicule, chauffeur, montant recette(cout revient vehicule),  zone_de_livraison, adresse de destination, colis, date
+      * Liste livreur : id, nom, salaire  ok
+      * Liste vehicule : id, marque  ok
+      * Liste zone_de_livraison : id, zone  ok
+      * Statut(en attente livre annulee)  ok
+      * Param_livraison : prix_kg, adresse depart  ok
+      * Colis : id, libelle, poids    ok
+      * Liste livraison : id, vehicule, chauffeur, montant recette(cout revient vehicule),  zone_de_livraison, adresse de destination, colis, date  ok
 
-  - inserer des valeurs de test (Juan)
+  - inserer des valeurs de test (Juan)    ok
 
 -----------------------------------
           FONCTIONS
 -----------------------------------
-  - creer une fonction connect(connection base) (juan)
+  - creer une fonction connect(connection base) (juan)  ok
 
-  - function getAllStatut() (Mihaja)
+  - function getAllStatut() (Mihaja)    ok
 
-  - function getAllChauffeur() (Mihaja)
+  - function getAllChauffeur() (Mihaja)   ok
 
-  - function getAllVehicule() (Mihaja)
+  - function getAllVehicule() (Mihaja)    ok
 
-  - function gatAllZone() (Mihaja)
+  - function gatAllZone() (Mihaja)    ok
 
-  - function getParametre() (Mihaja)
+  - function getParametre() (Mihaja)    ok
 
-  - function insererColis($libelle, $poids) (juan)
+  - function insererColis($libelle, $poids) (juan)    ok
 
-  - function insererLivraison($idcolis, $vehicule, $chauffeur, $date, $statut, $montant recette) (juan)
+  - function insererLivraison($idcolis, $vehicule, $chauffeur, $date, $statut, $montant recette) (juan)   ok
 
-  - function getAlllivraison($jour, $mois, $annee)
+  - function getAlllivraison($jour, $mois, $annee)    ok
 
-  - function calculChiffreAffaire($idColis) (juan)
+  - function calculChiffreAffaire($idColis) (juan)    ok
 
-  - function getAllRevient($livraisons)
+  - function getAllRevient($livraisons)   ok
 
-  - function getBenefice($jour, $mois, $annee)
+  - function getBenefice($jour, $mois, $annee)    ok
 
 -----------------------------------
           MODELS (Mihaja)
 -----------------------------------
-  - Vehicule.php : (Mihaja)
-    * function : getAllVehicule()
+  - Vehicule.php : (Mihaja)     
+    * function : getAllVehicule()   ok   
 
-  - livreur.php  (Mihaja)
-    * function getAllChauffeur()
+  - livreur.php  (Mihaja)     
+    * function getAllChauffeur()    ok
 
   - statut.php (Mihaja)
-    * function getAllStatut()
+    * function getAllStatut()     ok
 
   - zone.php (Mihaja)
-    * getAllZone()
+    * getAllZone()    ok
 
   - colis.php
-    * inserer colis
+    * inserer colis     ok
 
   - livraison.php
-    * function inserer livraison(), function getParametre()
+    * function inserer livraison(), function getParametre()   ok
 
   - benefice.php
-    * function calculChiffreAffaire(), getAllRevient()
+    * function calculChiffreAffaire(), getAllRevient()    ok
 
 -----------------------------------
           CONTROLLERS (Juan)
 -----------------------------------
-  - LivraisonController.php :
+  - LivraisonController.php :     ok
     * functions :
-      - getDonneesFormulaires()
+      - getDonneesFormulaires()   ok
         -> ['chauffeurs', 'status', 'vehicules', 'zones']
 
-      - insererDonnees()
+      - insererDonnees()      ok
         -> get les inputs des formulaires
         -> inserer colis et get son id pour inserer dans livraison
         -> return true if reussie et false sinon
 
-      - getBenefice($jour, $mois, $annee)
+      - getBenefice($jour, $mois, $annee)     ok
         -> return date et benefice
 
 -----------------------------------
           VUES (Juan)
 -----------------------------------
   - creer des vues :
-      - pages pour formulaire insertion livraison
+      - pages pour formulaire insertion livraison   ok
         * input date
         * select chauffeur value idlivreur
         * select vehicule value idVehicule
@@ -91,27 +91,27 @@
         * select zone value idZone
         * input colis (libelle et pods)
 
-      - pages pour afficher benefice par periode
+      - pages pour afficher benefice par periode    ok
 
 -----------------------------------
           ROUTES
 -----------------------------------
-  - creer les routes necessaires dans routes.php pour les vues
+  - creer les routes necessaires dans routes.php pour les vues (Mihaja)     ok 
 
 
 PARTIE 2 :
 
-  - DATABASE : (Mihaja)
-    * ajouter une colonne bonus default 0 dans zone
-    * inserer les donnée :
+  - DATABASE : (Mihaja)  ok
+    * ajouter une colonne bonus default 0 dans zone  ok
+    * inserer les donnée :      ok
       - 10 vehicules
       - 5 chauffeur 15000AR, 3 chauffeur 18000AR, 4 chauffeur 20000Ar
       - 3 zones à 12.5%, 2 zones 0%
 
-  - function getSalaire (Juan)
+  - function getSalaire (Juan)    ok
     * modifier pour ajouter les bonus
 
-  - vues : (Juan)
-    * ajouter une page pour gerer les zones(formulaire ajout, liste avec option modifierou supprimer)
-    * livraisons.php:
-      - ajouter un bouton pour tout supprimer avec validation taper 9999 pour confirmer
+  - vues : (Juan)   ok
+    * ajouter une page pour gerer les zones(formulaire ajout, liste avec option modifierou supprimer)  ok
+    * livraisons.php:     ok
+      - ajouter un bouton pour tout supprimer avec validation taper 9999 pour confirmer   ok
