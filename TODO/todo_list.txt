@@ -97,3 +97,21 @@
           ROUTES
 -----------------------------------
   - creer les routes necessaires dans routes.php pour les vues
+
+
+PARTIE 2 :
+
+  - DATABASE :
+    * ajouter une colonne bonus default 0 dans zone
+    * inserer les donnée :
+      - 10 vehicules
+      - 5 chauffeur 15000AR, 3 chauffeur 18000AR, 4 chauffeur 20000Ar
+      - 3 zones à 12.5%, 2 zones 0%
+
+  - function getSalaire
+    * modifier pour ajouter les bonus
+
+  - vues :
+    * ajouter une page pour gerer les zones(formulaire ajout, liste avec option modifierou supprimer)
+    * livraisons.php:
+      - ajouter un bouton pour tout supprimer avec validation taper 9999 pour confirmer
