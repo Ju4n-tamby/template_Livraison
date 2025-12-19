@@ -30,16 +30,17 @@ class Benefice
 
   public function getAllRevient($livraisons)
   {
-    $sql = "SELECT lv.montant_recette AS revient, lvr.salaire AS salaire
+    $sql = "SELECT lv.montant_recette AS revient, lvr.salaire AS salaire, lz.bonus AS bonus
             FROM lvr_Livraisons lv
             JOIN lvr_Livreurs lvr ON lv.id_livreur = lvr.id_livreur
+            JOIN lvr_Zone lz ON lv.id_zone = lz.id_zone
             WHERE id_livraison = ?";
     $revient = 0;
     foreach ($livraisons as $livraison) {
       $stmt = $this->db->prepare($sql);
       $stmt->execute([$livraison['id_livraison']]);
       $result = $stmt->fetch();
-      $revient += $result['revient'] + $result['salaire'];
+      $revient += $result['revient'] + $result['salaire'] + ($result['bonus'] * $result['salaire']) / 100;
     }
     return $revient;
   }

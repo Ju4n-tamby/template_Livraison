@@ -61,8 +61,8 @@ INSERT INTO lvr_Livreurs (nom, salaire) VALUES
 INSERT INTO lvr_Vehicules (marque) VALUES
 ('Toyota'), ('Ford'), ('Honda'), ('Nissan'), ('Chevrolet');
 
--- INSERT INTO lvr_Zone (zone) VALUES
--- ('Antananarivo'), ('Toamasina'), ('Fianarantsoa'), ('Mahajanga'), ('Toliara');
+INSERT INTO lvr_Zone (zone) VALUES
+('Antananarivo'), ('Toamasina'), ('Fianarantsoa'), ('Mahajanga'), ('Toliara');
 
 INSERT INTO lvr_Vehicules (marque) VALUES 
 ('Volkswagen'), ('Porsche'), ('BMW'), ('Audi'), ('Mercedes-Benz');
@@ -76,6 +76,7 @@ INSERT INTO lvr_Livreurs (nom, salaire) VALUES
 
 ALTER TABLE lvr_Zone ADD COLUMN bonus DECIMAL(10,2) DEFAULT 0;
 
+TRUNCATE TABLE lvr_Livraison;
 TRUNCATE TABLE lvr_Zone;
 
 INSERT INTO lvr_Zone (bonus) VALUES
