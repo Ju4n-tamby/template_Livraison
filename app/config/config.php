@@ -46,6 +46,7 @@ if (empty($app) === true) {
 $app->path(__DIR__ . $ds . '..' . $ds . '..');
 
 // Core config variables
+define('BASE_URL', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'));
 $app->set('flight.base_url', '/', );           // Base URL for your app. Change if app is in a subdirectory (e.g., '/myapp/')
 $app->set('flight.case_sensitive', false);    // Set true for case sensitive routes. Default: false
 $app->set('flight.log_errors', true);         // Log errors to file. Recommended: true in production
@@ -64,7 +65,7 @@ $app->set('csp_nonce', $nonce);
 return [
   'database' => [
     'host' => 'localhost:3306',
-    'dbname' => 'Taxibe',
+    'dbname' => 'Livraison',
     'user' => 'root',
     'password' => '',
   ],

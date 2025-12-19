@@ -3,7 +3,8 @@ USE Livraison;
 
 CREATE TABLE lvr_Livreurs(
   id_livreur INT PRIMARY KEY AUTO_INCREMENT,
-  nom VARCHAR(100)
+  nom VARCHAR(100),
+  salaire DECIMAL(10,2)
 );
 
 CREATE TABLE lvr_Vehicules(
@@ -39,7 +40,6 @@ CREATE TABLE lvr_Livraisons(
   id_livreur INT,
   montant_recette DECIMAL(10,2),
   id_zone INT,
-  adresse_destination VARCHAR(200),
   id_colis INT,
   date_livraison DATETIME,
   id_statut INT,
@@ -50,13 +50,13 @@ CREATE TABLE lvr_Livraisons(
   FOREIGN KEY (id_statut) REFERENCES lvr_Statut(id_statut)
 );
 
-INSERT INTO ADDRESS lvr_Param_Livraison (prix_kg, adresse_depart) VALUES (3000, 'Anosibe, Antananarivo');
+INSERT INTO lvr_Param_Livraison (prix_kg, adresse_depart) VALUES (3000, 'Anosibe, Antananarivo');
 
 INSERT INTO lvr_Statut (libelle) VALUES
 ('En attente'), ('Livré'), ('Annulé');
 
-INSERT INTO lvr_Livreurs (nom) VALUES
-('Jean Dupont'), ('Marie Curie'), ('Albert Einstein'), ('Isaac Newton', ('Galileo Galilei'));
+INSERT INTO lvr_Livreurs (nom, salaire) VALUES
+('Jean Dupont', 2500), ('Marie0 Curie', 2700), ('Albert Einstein', 2800), ('Isaac Newton', 2600), ('Galileo Galilei', 2550);
 
 INSERT INTO lvr_Vehicules (marque) VALUES
 ('Toyota'), ('Ford'), ('Honda'), ('Nissan'), ('Chevrolet');

@@ -14,7 +14,7 @@ class Livreur
 
   public function getAllChauffeur()
   {
-    $sql = "SELECT * FROM lvr_Livreurs";
+    $sql = "SELECT * FROM lvr_Livreurs ORDER BY id_livreur ASC";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll();

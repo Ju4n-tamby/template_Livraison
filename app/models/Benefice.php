@@ -12,54 +12,35 @@ class Benefice
     $this->db = $db;
   }
 
-  public function getAlllivraison($jour, $mois, $annee)
-  {
-    $dateDebut = sprintf('%04d-%02d-%02d 00:00:00', $annee, $mois, $jour);
-    $dateFin   = sprintf('%04d-%02d-%02d 23:59:59', $annee, $mois, $jour);
-
-    $sql = "SELECT * FROM lvr_Livraisons WHERE date_livraison BETWEEN ? AND ?";
-    $stmt = $this->db->prepare($sql);
-    $stmt->execute([$dateDebut, $dateFin]);
-    return $stmt->fetchAll();
-  }
-
   public function calculChiffreAffaire($idColis)
   {
-    $sql = "SELECT SUM(montant_recette) AS chiffre_affaire FROM lvr_Livraisons WHERE id_colis = ?";
+    $sql = "SELECT prix_kg FROM lvr_Param_Livraison";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    $param = $stmt->fetch();
+    $prixPoids = $param['prix_kg'];
+
+    $sql = "SELECT poids FROM lvr_Colis WHERE id_colis = ?";
     $stmt = $this->db->prepare($sql);
     $stmt->execute([$idColis]);
-    return $stmt->fetch();
+    $colis = $stmt->fetch();
+    $poidsColis = $colis['poids'];
+    return $prixPoids * $poidsColis;
   }
 
   public function getAllRevient($livraisons)
   {
-    // Cette fonction dépendrait d'une table de coûts de revient par livraison/vehicule.
-    // Pour l'instant, on renvoie 0 pour chaque livraison.
-    $result = [];
+    $sql = "SELECT lv.montant_recette AS revient, lvr.salaire AS salaire
+            FROM lvr_Livraisons lv
+            JOIN lvr_Livreurs lvr ON lv.id_livreur = lvr.id_livreur
+            WHERE id_livraison = ?";
+    $revient = 0;
     foreach ($livraisons as $livraison) {
-      $result[] = [
-        'id_livraison' => $livraison['id_livraison'],
-        'montant_revient' => 0
-      ];
+      $stmt = $this->db->prepare($sql);
+      $stmt->execute([$livraison['id_livraison']]);
+      $result = $stmt->fetch();
+      $revient += $result['revient'] + $result['salaire'];
     }
-    return $result;
-  }
-
-  public function getBenefice($jour, $mois, $annee)
-  {
-    $livraisons = $this->getAlllivraison($jour, $mois, $annee);
-    $revients = $this->getAllRevient($livraisons);
-
-    $totalRecette = 0;
-    foreach ($livraisons as $l) {
-      $totalRecette += $l['montant_recette'];
-    }
-
-    $totalRevient = 0;
-    foreach ($revients as $r) {
-      $totalRevient += $r['montant_revient'];
-    }
-
-    return $totalRecette - $totalRevient;
+    return $revient;
   }
 }

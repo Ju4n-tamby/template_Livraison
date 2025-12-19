@@ -14,7 +14,7 @@ class Statut
 
   public function getAllStatut()
   {
-    $sql = "SELECT * FROM lvr_Statut";
+    $sql = "SELECT * FROM lvr_Statut ORDER BY id_statut ASC";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll();

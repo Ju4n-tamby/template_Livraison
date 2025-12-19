@@ -14,7 +14,7 @@ class Vehicule
 
   public function getAllVehicule()
   {
-    $sql = "SELECT * FROM lvr_Vehicules";
+    $sql = "SELECT * FROM lvr_Vehicules ORDER BY id_vehicule ASC";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll();

@@ -14,7 +14,7 @@ class Zone
 
   public function getAllZone()
   {
-    $sql = "SELECT * FROM lvr_Zone";
+    $sql = "SELECT * FROM lvr_Zone ORDER BY id_zone ASC";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll();

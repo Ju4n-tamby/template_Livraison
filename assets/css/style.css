@@ -135,7 +135,6 @@ h1 {
 /* TABLETTE */
 /* ============================= */
 @media (max-width: 1024px) {
-
   body {
     padding: 30px;
   }
@@ -159,7 +158,6 @@ h1 {
 /* MOBILE : TABLE → CARTES */
 /* ============================= */
 @media (max-width: 640px) {
-
   body {
     padding: 15px;
   }
@@ -194,7 +192,7 @@ h1 {
     margin-bottom: 18px;
     padding: 16px;
     border-radius: 16px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
   }
 
   .table td {
@@ -229,7 +227,6 @@ h1 {
 /* TRÈS GRANDS ÉCRANS */
 /* ============================= */
 @media (min-width: 1600px) {
-
   .container {
     max-width: 1500px;
   }

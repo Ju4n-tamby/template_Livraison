@@ -16,6 +16,7 @@ class Colis
   {
     $sql = "INSERT INTO lvr_Colis (libelle, poids) VALUES (?, ?)";
     $stmt = $this->db->prepare($sql);
-    return $stmt->execute([$libelle, $poids]);
+    $stmt->execute([$libelle, $poids]);
+    return $this->db->lastInsertId();
   }
 }

@@ -40,7 +40,7 @@
   - function getBenefice($jour, $mois, $annee)
 
 -----------------------------------
-          MODELS
+          MODELS (Mihaja)
 -----------------------------------
   - Vehicule.php : (Mihaja)
     * function : getAllVehicule()
@@ -61,10 +61,10 @@
     * function inserer livraison(), function getParametre()
 
   - benefice.php
-    * function getAlllivraison(), calculChiffreAffaire(), getAllRevient(), getBenefice()
+    * function calculChiffreAffaire(), getAllRevient()
 
 -----------------------------------
-          CONTROLLERS
+          CONTROLLERS (Juan)
 -----------------------------------
   - LivraisonController.php :
     * functions :
@@ -72,16 +72,25 @@
         -> ['chauffeurs', 'status', 'vehicules', 'zones']
 
       - insererDonnees()
+        -> get les inputs des formulaires
+        -> inserer colis et get son id pour inserer dans livraison
         -> return true if reussie et false sinon
 
       - getBenefice($jour, $mois, $annee)
         -> return date et benefice
 
 -----------------------------------
-          VUES
+          VUES (Juan)
 -----------------------------------
   - creer des vues :
       - pages pour formulaire insertion livraison
+        * input date
+        * select chauffeur value idlivreur
+        * select vehicule value idVehicule
+        * select status value idStatut
+        * select zone value idZone
+        * input colis (libelle et pods)
+
       - pages pour afficher benefice par periode
 
 -----------------------------------
