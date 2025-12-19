@@ -98,4 +98,10 @@ $router->group('', function ($router) {
       echo "Erreur lors de l'insertion des données.";
     }
   });
+
+  $router->get('/benefices_vehicules', function () {
+    $controller = new LivraisonController(Flight::db());
+    $benefices = $controller->getBeneficesVehicules();
+    Flight::render('benefice_vehicule', ['benefices' => $benefices]);
+  });
 }, [SecurityHeadersMiddleware::class]);

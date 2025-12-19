@@ -78,4 +78,9 @@ class LivraisonController
   {
     return $this->livraisonModel->changeStatut($id, $statut);
   }
+
+  public function getBeneficesVehicules()
+  {
+    return $this->beneficeModel->getAllBeneficesVehicules();
+  }
 }

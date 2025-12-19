@@ -44,4 +44,53 @@ class Benefice
     }
     return $revient;
   }
+
+  public function getBeneficeVehicule($idVehicule)
+  {
+    // Récupérer toutes les livraisons pour ce véhicule
+    $sql = "SELECT lv.id_livraison, lv.id_colis, lv.montant_recette, lvr.salaire, lz.bonus
+            FROM lvr_Livraisons lv
+            JOIN lvr_Livreurs lvr ON lv.id_livreur = lvr.id_livreur
+            JOIN lvr_Zone lz ON lv.id_zone = lz.id_zone
+            WHERE lv.id_vehicule = ?";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$idVehicule]);
+    $livraisons = $stmt->fetchAll();
+
+    $chiffreAffaire = 0;
+    $revient = 0;
+
+    foreach ($livraisons as $livraison) {
+      // Calculer le chiffre d'affaire pour chaque colis
+      $chiffreAffaire += $this->calculChiffreAffaire($livraison['id_colis']);
+
+      // Calculer le revient (salaire + bonus)
+      $revient += $livraison['montant_recette'] + $livraison['salaire'] + ($livraison['bonus'] * $livraison['salaire']) / 100;
+    }
+
+    $benefice = $chiffreAffaire - $revient;
+
+    return [
+      'chiffre_affaire' => $chiffreAffaire,
+      'revient' => $revient,
+      'benefice' => $benefice
+    ];
+  }
+
+  public function getAllBeneficesVehicules()
+  {
+    // Récupérer tous les véhicules
+    $sql = "SELECT id_vehicule, marque FROM lvr_Vehicules";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    $vehicules = $stmt->fetchAll();
+
+    $resultats = [];
+    foreach ($vehicules as $vehicule) {
+      $benefices = $this->getBeneficeVehicule($vehicule['id_vehicule']);
+      $resultats[] = array_merge($vehicule, $benefices);
+    }
+
+    return $resultats;
+  }
 }
